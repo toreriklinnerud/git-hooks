@@ -1,0 +1,9 @@
+#!/bin/sh
+# Dependecy: the rspec gem (duh!)
+set -e
+
+specfiles=$(git diff --cached --name-only --diff-filter=ACM "*_spec.rb" | tr '\n' ' ')
+[ -z "$specfiles" ] && exit 0
+
+echo "💎 Automatically running specs involved in this commit ($(echo $specfiles | wc -w | awk '{print $1}') total)"
+bin/rspec $specfiles

@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# The annotate ruby gem
+set -e
+
+migrations=$(git diff --cached --name-only "db/structure.sql" | tr '\n' ' ')
+[ -z "$migrations" ] && exit 0
+
+echo "💅 Annotating models with schema information"
+bin/rake annotate_models
+
+# Add back the modified/prettified files to staging
+git add app/models
+
+exit 0
