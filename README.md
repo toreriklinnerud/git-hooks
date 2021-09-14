@@ -11,7 +11,7 @@ Only the files involved in the commit will be affected by the hooks (except for 
 
 ## How do I use this?
 
-Add the files to the .git/hooks/ directory in your project.
+Add the files to the `.git/hooks/` directory in your project.
 
 Ensure that they are executable:
 
