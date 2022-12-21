@@ -3,7 +3,7 @@
 
 set -e
 
-.git/hooks/pre-commit-format-javascript
-.git/hooks/pre-commit-format-ruby
-.git/hooks/pre-commit-annotate-models
-.git/hooks/pre-commit-rspec
+~/.git-hooks/pre-commit-format-javascript
+~/.git-hooks/pre-commit-format-ruby
+~/.git-hooks/pre-commit-annotate-models
+~/.git-hooks/pre-commit-rspec
