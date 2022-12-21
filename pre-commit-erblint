@@ -1,0 +1,16 @@
+#!/bin/sh
+# Dependency: standard(rb) ruby gem
+
+set -e
+
+erbfiles=$(git diff --cached --name-only --diff-filter=ACM "app/views/**/*.erb" | tr '\n' ' ')
+[ -z "$erbfiles" ] && exit 0
+
+# Standardize all erb files
+echo "💅 Linting staged erb files using erblint ($(echo $erbfiles | wc -w | awk '{print $1}') total)"
+echo "$erbfiles" | xargs bin/erblint --autocorrect
+
+# Add back the modified/prettified files to staging
+echo "$erbfiles" | xargs git add
+
+exit 0
