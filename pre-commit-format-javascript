@@ -7,7 +7,7 @@ jsfiles=$(git diff --cached --name-only --diff-filter=ACM "*.js" "*.jsx" | tr '\
 
 # Prettify all staged .js files
 echo "💅 Automatically formatting staged Javascript files using prettier ($(echo $jsfiles | wc -w | awk '{print $1}') total)"
-echo "$jsfiles" | xargs prettier --write --loglevel=error
+echo "$jsfiles" | xargs prettier --write --log-level=error
 
 # Add back the modified/prettified files to staging
 echo "$jsfiles" | xargs git add
