@@ -4,13 +4,18 @@
 set -e
 
 cleanup_stash() {
-    git stash pop stash@{0} --quiet
+    stash_id=$(git stash list --grep="Pre-commit unstaged changes" --format="%gd")
+    if [ -n "$stash_id" ]; then
+        git stash pop $stash_id --quiet
+    fi
 }
 
 git stash push --staged -m "Pre-commit staged changes" --quiet
-git stash --include-untracked -m "Pre-commit unstaged changes" --quiet
-git stash pop stash@{1} --quiet
-git add .
+git stash push --include-untracked -m "Pre-commit unstaged changes" --quiet
+
+stash_id=$(git stash list --grep="Pre-commit staged changes" --format="%gd")
+git stash pop $stash_id --index --quiet
+
 
 trap cleanup_stash EXIT
 
