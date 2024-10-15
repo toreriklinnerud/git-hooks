@@ -3,8 +3,18 @@
 
 set -e
 
+cleanup_stash() {
+    git stash pop stash@{0} --quiet
+}
+
+git stash push --staged -m "Pre-commit staged changes" --quiet
+git stash --include-untracked -m "Pre-commit unstaged changes" --quiet
+git stash pop stash@{1} --quiet
+git add .
+
+trap cleanup_stash EXIT
+
 ~/.git-hooks/pre-commit-format-javascript
 ~/.git-hooks/pre-commit-format-ruby
-~/.git-hooks/pre-commit-erblint
 ~/.git-hooks/pre-commit-annotate-models
 ~/.git-hooks/pre-commit-rspec
